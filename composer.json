@@ -6,6 +6,12 @@
         "psr-4": {
             "": "src/",
             "SymfonyStandard\\": "app/SymfonyStandard/"
+        },
+        "files": ["app/AppKernel.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "require": {
@@ -48,12 +54,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ]
     },
-    "config": {
-        "bin-dir": "bin"
-    },
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
+        "symfony-var-dir": "var",
+        "symfony-bin-dir": "bin",
+        "symfony-tests-dir": "tests",
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"

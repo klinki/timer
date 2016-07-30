@@ -10,3 +10,7 @@
 /vendor/
 /web/bundles/
 /.idea/
+/var/
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+/phpunit.xml
