@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
  * LogEntry
  *
  * @ORM\Table
- * @ORM\Entity(repositoryClass="AppBundle\Entity\LogEntryRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\LogEntryRepository")
  */
 class LogEntry
 {

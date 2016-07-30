@@ -1,7 +1,9 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Repository;
 
+use AppBundle\Entity\Task;
+use AppBundle\Entity\User;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\TaskRepository;
+use AppBundle\Entity\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class LogEntryController extends Controller

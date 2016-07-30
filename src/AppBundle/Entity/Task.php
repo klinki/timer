@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Task
  *
  * @ORM\Table
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\TaskRepository")
  */
 class Task
 {
@@ -115,14 +115,6 @@ class Task
     public function getOwner()
     {
         return $this->owner;
-    }
-
-    /**
-     * @param mixed $logEntries
-     */
-    public function setLogEntries($logEntries)
-    {
-        $this->logEntries = $logEntries;
     }
 
     /**
