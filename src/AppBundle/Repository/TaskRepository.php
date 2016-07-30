@@ -1,27 +1,35 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: david
- * Date: 9/21/15
- * Time: 10:39 PM
- */
 
 namespace AppBundle\Entity;
 
-
+use Doctrine\DBAL\Connection;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
 class TaskRepository extends EntityRepository
 {
+    /** @var Connection */
     protected $connection;
 
-    public function __construct($em, ClassMetadata $class)
+    /**
+     * Constructor.
+     *
+     * @param EntityManager $em
+     * @param ClassMetadata $class
+     */
+    public function __construct(EntityManager $em, ClassMetadata $class)
     {
         parent::__construct($em, $class);
         $this->connection = $em->getConnection();
     }
 
+    /**
+     * Gets all unfinished tasks
+     *
+     * @param User $user
+     * @return Task[]
+     */
     public function findAllUnfinishedByUser(User $user)
     {
         return $this->findBy([
@@ -30,6 +38,12 @@ class TaskRepository extends EntityRepository
         ]);
     }
 
+    /**
+     * Persists task
+     *
+     * @param Task $task
+     * @return Task
+     */
     public function save(Task $task)
     {
         $this->connection->beginTransaction();
@@ -42,6 +56,12 @@ class TaskRepository extends EntityRepository
         return $task;
     }
 
+    /**
+     * Updates task
+     *
+     * @param Task $task
+     * @return Task
+     */
     public function update(Task $task)
     {
         $this->connection->beginTransaction();
@@ -54,6 +74,11 @@ class TaskRepository extends EntityRepository
         return $task;
     }
 
+    /**
+     * Deletes task
+     *
+     * @param Task $task
+     */
     public function delete(Task $task)
     {
         $this->connection->beginTransaction();
@@ -63,5 +88,4 @@ class TaskRepository extends EntityRepository
 
         $this->connection->commit();
     }
-
 }

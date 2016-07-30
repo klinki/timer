@@ -2,12 +2,13 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Task
  *
- * @ORM\Table()
+ * @ORM\Table
  * @ORM\Entity
  */
 class Task
@@ -29,6 +30,7 @@ class Task
     protected $name;
 
     /**
+     * @var User
      *
      * @ORM\Column(name="owner", type="object")
      */
@@ -36,18 +38,31 @@ class Task
 
 
     /**
+     * @var LogEntry[]|ArrayCollection
+     *
      * @ORM\ManyToOne(targetEntity="LogEntry")
      */
     protected $logEntries;
 
 
     /**
+     * @var boolean
+     *
      * @ORM\Column(type="boolean")
      */
     protected $isFinished;
 
 
     /**
+     * @var \DateInterval
+     *
+     * @ORM\Column(type="dateinterval")
+     */
+    protected $estimatedTime;
+
+    /**
+     * Constructor.
+     *
      * @param string $name
      * @param User $owner
      */
@@ -55,14 +70,14 @@ class Task
     {
         $this->name = $name;
         $this->owner = $owner;
-        $this->logEntries = [];
+        $this->logEntries = new ArrayCollection();
         $this->isFinished = false;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -85,7 +100,7 @@ class Task
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -95,7 +110,7 @@ class Task
     /**
      * Get owner
      *
-     * @return \stdClass 
+     * @return User
      */
     public function getOwner()
     {
@@ -111,7 +126,7 @@ class Task
     }
 
     /**
-     * @return mixed
+     * @return boolean
      */
     public function getIsFinished()
     {
@@ -119,6 +134,8 @@ class Task
     }
 
     /**
+     *
+     *
      * @param mixed $isFinished
      */
     public function setIsFinished($isFinished)
@@ -126,6 +143,11 @@ class Task
         $this->isFinished = $isFinished;
     }
 
+    /**
+     * Adds new log entry
+     *
+     * @param LogEntry $logEntry
+     */
     public function addLogEntry(LogEntry $logEntry)
     {
         if ($this->isFinished) {
@@ -135,19 +157,23 @@ class Task
         $this->logEntries[] = $logEntry;
     }
 
-
+    /**
+     * Removes log entry
+     *
+     * @param LogEntry $logEntry
+     */
     public function removeLogEntry(LogEntry $logEntry)
     {
-        
+        $this->logEntries->removeElement($logEntry);
     }
 
-
     /**
-     * @return LogEntry[]
+     * Gets all log entries
+     *
+     * @return LogEntry[]|ArrayCollection
      */
     public function getLogEntries()
     {
         return $this->logEntries;
     }
-
 }

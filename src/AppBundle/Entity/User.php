@@ -24,6 +24,12 @@ class User extends BaseUser
     protected $id;
 
 
+    /**
+     * Constructor.
+     *
+     * @param string $email
+     * @param string $password
+     */
     public function __construct($email, $password)
     {
         parent::__construct();

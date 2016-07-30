@@ -3,11 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * LogEntry
  *
- * @ORM\Table()
+ * @ORM\Table
  * @ORM\Entity(repositoryClass="AppBundle\Entity\LogEntryRepository")
  */
 class LogEntry
@@ -21,18 +22,29 @@ class LogEntry
      */
     protected $id;
 
-
+    /**
+     * @var
+     */
     protected $name;
 
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
     protected $from;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
     protected $to;
-
-
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {

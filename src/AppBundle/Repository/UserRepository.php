@@ -13,24 +13,47 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    /**
+     * Creates new user
+     *
+     * @param User $user
+     */
     public function add(User $user)
     {
         $this->getEntityManager()->persist($user);
     }
 
+    /**
+     * Removes user
+     *
+     * @param User $user
+     */
     public function remove(User $user)
     {
         $this->getEntityManager()->remove($user);
     }
 
+    /**
+     * Updates user
+     *
+     * @param User $user
+     */
     public function update(User $user)
     {
         $this->getEntityManager()->persist($user);
     }
 
 
+    /**
+     * Gets user by email
+     *
+     * @param string $email
+     * @return User
+     * @throws EntityNotFoundException
+     */
     public function findByEmail($email)
     {
+        /** @var User $user */
         $user = $this->findOneBy(['email' => $email]);
 
         if (!$user) {
