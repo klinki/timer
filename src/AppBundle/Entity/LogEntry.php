@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * LogEntry
@@ -35,14 +34,14 @@ class LogEntry
     protected $text;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      *
      * @ORM\Column(name="`from`", type="datetime")
      */
     protected $from;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      *
      * @ORM\Column(name="`to`", type="datetime", nullable=true)
      */
@@ -65,9 +64,9 @@ class LogEntry
     }
 
     /**
-     * Gets mixed
+     * Gets name
      *
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -75,9 +74,9 @@ class LogEntry
     }
 
     /**
-     * Sets mixed dependency
+     * Sets name
      *
-     * @param mixed $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -85,9 +84,9 @@ class LogEntry
     }
 
     /**
-     * Gets DateTime
+     * Gets from date
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getFrom()
     {
@@ -95,7 +94,7 @@ class LogEntry
     }
 
     /**
-     * Sets DateTime dependency
+     * Sets from date
      *
      * @param \DateTime $from
      */
@@ -105,9 +104,9 @@ class LogEntry
     }
 
     /**
-     * Gets DateTime
+     * Gets to date
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getTo()
     {
@@ -115,7 +114,7 @@ class LogEntry
     }
 
     /**
-     * Sets DateTime dependency
+     * Sets to date dependency
      *
      * @param \DateTime $to
      */
@@ -135,12 +134,40 @@ class LogEntry
     }
 
     /**
-     * Sets Task dependency
+     * Sets Task
      *
      * @param Task $task
      */
     public function setTask(Task $task)
     {
         $this->task = $task;
+    }
+
+    /**
+     * @return \DateInterval
+     */
+    public function getDuration()
+    {
+        return $this->to->diff($this->from);
+    }
+
+    /**
+     * Gets text
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Sets text
+     *
+     * @param string $text
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
     }
 }

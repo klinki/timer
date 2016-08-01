@@ -83,4 +83,19 @@ class DefaultController extends Controller
 
         return $this->redirectToRoute('homepage');
     }
+
+    public function formAction(Request $request)
+    {
+        if (!$request->isMethod('POST')) {
+            return $this->createNotFoundException('Expecting post');
+        }
+
+        $logEntries = $this->getLogEntryRepository()->getNonCompletedLogEntriesByUser($this->getUser());
+
+        foreach ($logEntries as $logEntry) {
+            $this->getLogEntryService()->stopLogEntry($this->getUser(), $logEntry);
+        }
+
+        return $this->redirectToRoute('homepage');
+    }
 }

@@ -28,6 +28,28 @@
         </tbody>
     </table>
 
+    <h2>Log entries</h2>
+    <table>
+        <thead>
+            <tr><th>Id</th><th>Name</th><th>From</th><th>To</th><th>Duration</th><th></th><th></th></tr>
+        </thead>
+        <tbody>
+            {% for logEntry in task.logEntries %}
+                <tr>
+                    <td>{{ logEntry.id }}</td>
+                    <td>{{ logEntry.name }}</td>
+                    <td>{{ logEntry.from.format('d.m.Y H:i') }}</td>
+                    <td>{{ logEntry.to.format('d.m.Y H:i') }}</td>
+                    <td>{{ logEntry.duration.format('%hh %Im') }}</td>
+                    <td><a href="{{ path('log-entry-complete', {id: logEntry.id}) }}">Edit</a></td>
+                    <td><a href="{{ path('log_entry_delete', {id: logEntry.id}) }}">Delete</a></td>
+                </tr>
+            {% else %}
+                <tr><td colspan="5">No entries</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
     <ul>
         <li>
             <a href="{{ path('task_index') }}">Back to the list</a>

@@ -41,8 +41,8 @@ class TaskRepository extends EntityRepository
     }
 
     /**
-     * @param $userId
-     * @return Task
+     * @param int $userId
+     * @return Task|null
      */
     public function findUserDefaultTask($userId)
     {

@@ -5,11 +5,12 @@ use AppBundle\Entity\Repository\TaskRepository;
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
 use Doctrine\DBAL\Connection;
+use Doctrine\ORM\EntityManager;
 
 class TaskService
 {
-    /** @var  Connection */
-    protected $connection;
+    /** @var  EntityManager */
+    protected $em;
 
     /** @var  TaskRepository */
     protected $taskRepository;
@@ -22,14 +23,14 @@ class TaskService
      */
     public function setTaskAsDefault(Task $task, User $user)
     {
-        $this->connection->beginTransaction();
+        $this->em->beginTransaction();
 
         $defaultTask = $this->taskRepository->findUserDefaultTask($user->getId());
         $defaultTask->setDefault(false);
         $task->setDefault(true);
         $this->taskRepository->update($task);
 
-        // flush should go here
-        $this->connection->commit();
+        $this->em->flush();
+        $this->em->commit();
     }
 }

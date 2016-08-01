@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Log Entry Form</h1>
+
+    {{ form_start(complete_form) }}
+        {{ form_widget(complete_form) }}
+        <input type="submit" value="Submit" />
+    {{ form_end(complete_form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('homepage') }}">Back to homepage</a>
+        </li>
+        <li>
+            {{ form_start(skip_form) }}
+            <input type="submit" value="Skip">
+            {{ form_end(skip_form) }}
+        </li>
+    </ul>
+{% endblock %}

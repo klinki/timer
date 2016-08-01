@@ -5,6 +5,12 @@ services:
             - { name: form.type }
         autowire: true
 
+    app.form.type:
+        class: AppBundle\Form\CompleteLogEntryType
+        tags:
+            - { name: form.type }
+        autowire: true
+
     app.controller.default_controller:
         class: AppBundle\Controller\DefaultController
         autowire: true
@@ -25,3 +31,6 @@ services:
         class: AppBundle\Entity\Service\LogEntryService
         autowire: true
 
+    app.entity_service.task_service:
+        class: AppBundle\Entity\Service\TaskService
+        autowire: true
