@@ -1,0 +1,27 @@
+services:
+    app.form.type.task:
+        class: AppBundle\Form\TaskType
+        tags:
+            - { name: form.type }
+        autowire: true
+
+    app.controller.default_controller:
+        class: AppBundle\Controller\DefaultController
+        autowire: true
+
+    app.entity.repository.log_entry_repository:
+        class: AppBundle\Entity\Repository\LogEntryRepository
+        factory: [ "@doctrine.orm.entity_manager", getRepository ]
+        arguments:
+          - AppBundle\Entity\LogEntry
+
+    app.entity.repository.task_repository:
+        class: AppBundle\Entity\Repository\TaskRepository
+        factory: [ "@doctrine.orm.entity_manager", getRepository ]
+        arguments:
+          - AppBundle\Entity\Task
+
+    app.entity_service.log_entry_service:
+        class: AppBundle\Entity\Service\LogEntryService
+        autowire: true
+

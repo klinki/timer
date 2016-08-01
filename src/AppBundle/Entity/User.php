@@ -27,13 +27,9 @@ class User extends BaseUser
     /**
      * Constructor.
      *
-     * @param string $email
-     * @param string $password
      */
-    public function __construct($email, $password)
+    public function __construct()
     {
         parent::__construct();
-        $this->email = $email;
-        $this->password = $password;
     }
 }

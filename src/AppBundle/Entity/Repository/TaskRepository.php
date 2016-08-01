@@ -41,6 +41,17 @@ class TaskRepository extends EntityRepository
     }
 
     /**
+     * @param $userId
+     * @return Task
+     */
+    public function findUserDefaultTask($userId)
+    {
+        return $this->findOneBy([
+            'owner' => $userId
+        ]);
+    }
+
+    /**
      * Persists task
      *
      * @param Task $task
@@ -66,13 +77,7 @@ class TaskRepository extends EntityRepository
      */
     public function update(Task $task)
     {
-        $this->connection->beginTransaction();
-
         $this->_em->persist($task);
-        $this->_em->flush();
-
-        $this->_em->commit();
-
         return $task;
     }
 
@@ -83,11 +88,6 @@ class TaskRepository extends EntityRepository
      */
     public function delete(Task $task)
     {
-        $this->connection->beginTransaction();
-
         $this->_em->remove($task);
-        $this->_em->flush();
-
-        $this->connection->commit();
     }
 }

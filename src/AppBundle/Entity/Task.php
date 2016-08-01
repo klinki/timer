@@ -32,7 +32,7 @@ class Task
     /**
      * @var User
      *
-     * @ORM\Column(name="owner", type="object")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      */
     protected $owner;
 
@@ -40,7 +40,7 @@ class Task
     /**
      * @var LogEntry[]|ArrayCollection
      *
-     * @ORM\ManyToOne(targetEntity="LogEntry")
+     * @ORM\OneToMany(targetEntity="LogEntry", mappedBy="task")
      */
     protected $logEntries;
 
@@ -54,11 +54,20 @@ class Task
 
 
     /**
-     * @var \DateInterval
+     * @var int
      *
-     * @ORM\Column(type="dateinterval")
+     * @ORM\Column(type="integer")
      */
     protected $estimatedTime;
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $isDefault;
+
 
     /**
      * Constructor.
@@ -120,7 +129,7 @@ class Task
     /**
      * @return boolean
      */
-    public function getIsFinished()
+    public function isFinished()
     {
         return $this->isFinished;
     }
@@ -167,5 +176,40 @@ class Task
     public function getLogEntries()
     {
         return $this->logEntries;
+    }
+
+    /**
+     * Gets \DateInterval
+     *
+     * @return int
+     */
+    public function getEstimatedTime()
+    {
+        return $this->estimatedTime;
+    }
+
+    public function getEstimatedTimeAsInterval()
+    {
+        return new \DateInterval('PT' . (int)$this->estimatedTime . 'S');
+    }
+
+    /**
+     * Sets  dependency
+     *
+     * @param \DateInterval $estimatedTime
+     */
+    public function setEstimatedTime($estimatedTime)
+    {
+        $this->estimatedTime = $estimatedTime;
+    }
+
+    public function setDefault($value)
+    {
+        $this->isDefault = $value;
+    }
+
+    public function isDefault()
+    {
+        return $this->isDefault;
     }
 }

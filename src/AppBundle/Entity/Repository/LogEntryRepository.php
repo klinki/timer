@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Repository;
 
+use AppBundle\Entity\LogEntry;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,5 +13,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class LogEntryRepository extends EntityRepository
 {
+    /**
+     * @param $userId
+     * @return LogEntry[]
+     */
+    public function getNonCompletedLogEntriesByUser($userId)
+    {
+        $qb = $this->createQueryBuilder('l');
+        $qb->join('l.task', 't')
+            ->where('t.owner = ?1')
+            ->andWhere('l.to IS NULL')
+            ->setParameter(1, $userId);
 
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
+
+    public function save(LogEntry $logEntry)
+    {
+        $this->_em->persist($logEntry);
+    }
 }
