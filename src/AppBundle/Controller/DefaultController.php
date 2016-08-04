@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class DefaultController extends Controller
 {
@@ -32,6 +33,8 @@ class DefaultController extends Controller
 
     /**
      * @Route("/", name="homepage")
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
+     *
      * @return Response
      */
     public function indexAction()
@@ -43,6 +46,7 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', array(
             'hasActiveTask' => $hasActiveTask,
+            'activeTask' => $hasActiveTask ? $logEntries[0] : null,
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
         ));
     }

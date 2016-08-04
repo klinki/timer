@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * LogEntry
@@ -149,6 +150,15 @@ class LogEntry
     public function getDuration()
     {
         return $this->to->diff($this->from);
+    }
+
+    /**
+     * @return \DateInterval
+     */
+    public function getTimeRunning()
+    {
+        $now = new \DateTime();
+        return $now->diff($this->from);
     }
 
     /**

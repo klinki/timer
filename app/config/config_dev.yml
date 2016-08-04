@@ -41,6 +41,9 @@ monolog:
         #    type:   chromephp
         #    level:  info
 
+twig:
+    cache: false
+
 assetic:
     use_controller: true
 

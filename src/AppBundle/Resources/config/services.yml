@@ -34,3 +34,10 @@ services:
     app.entity_service.task_service:
         class: AppBundle\Entity\Service\TaskService
         autowire: true
+
+
+    app.event_listener.user_registration_listener:
+        class: AppBundle\EventListener\UserRegistrationListener
+        autowire: true
+        tags:
+          - { name: kernel.event_subscriber }
