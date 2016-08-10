@@ -81,7 +81,7 @@
 
                     var hoursDifference = now.diff(timestamp, 'hours');
                     var minutesDifference = now.diff(timestamp, 'minutes') - hoursDifference * 60;
-                    var secondsDifference = now.diff(timestamp, 'seconds') - minutesDifference * 60;
+                    var secondsDifference = now.diff(timestamp, 'seconds') - now.diff(timestamp, 'minutes') * 60;
 
                     $(element).text(hoursDifference + 'h ' + minutesDifference + 'm ' + secondsDifference + 's' );
                 });

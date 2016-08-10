@@ -41,6 +41,16 @@ class TaskRepository extends EntityRepository
     }
 
     /**
+     * Gets all user tasks 
+     */
+    public function findAllByUser(User $user) 
+    {
+        return $this->findBy([
+            'owner' => $user
+        ]);
+    }
+
+    /**
      * @param int $userId
      * @return Task|null
      */
