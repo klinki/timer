@@ -15,11 +15,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Log Entry controller
  *
  * @Route("/log-entry")
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
  */
 class LogEntryController extends Controller
 {
@@ -132,8 +134,8 @@ class LogEntryController extends Controller
     /**
      * Deletes a LogEntry entity.
      *
-     * @Route("/{id}", name="log_entry_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="log_entry_delete", methods={"DELETE"})
+     *
      * @param Request $request
      * @param LogEntry $logEntry
      * @return RedirectResponse
@@ -156,7 +158,6 @@ class LogEntryController extends Controller
      * Creates a form to delete a LogEntry entity.
      *
      * @param LogEntry $logEntry The LogEntry entity
-     *
      * @return Form The form
      */
     private function createDeleteForm(LogEntry $logEntry)

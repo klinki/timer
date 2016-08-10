@@ -2,22 +2,23 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Task;
+use AppBundle\Form\TaskType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Entity\Task;
-use AppBundle\Form\TaskType;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Task controller.
  *
  * @Route("/task")
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
  */
-class TaskController extends Controller
+class TaskController extends BaseController
 {
     /**
      * Lists all Task entities.

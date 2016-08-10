@@ -4,15 +4,19 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Repository\LogEntryRepository;
 use AppBundle\Entity\Service\LogEntryService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+/**
+ * Class DefaultController
+ * @package AppBundle\Controller
+ *
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
+ */
+class DefaultController extends BaseController
 {
     /** @var  LogEntryService */
     protected $logEntryService;
@@ -52,16 +56,11 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/start", name="start")
-     * @param Request $request
-     * @return RedirectResponse|NotFoundHttpException
+     * @Route("/start", name="start", methods={"POST"})
+     * @return RedirectResponse
      */
-    public function startAction(Request $request)
+    public function startAction()
     {
-        if (!$request->isMethod('POST')) {
-            return $this->createNotFoundException('Expecting post');
-        }
-
         $logEntry = $this->getLogEntryService()->createLogEntry($this->getUser());
         $this->getLogEntryService()->startLogEntry($this->getUser(), $logEntry);
 
@@ -69,16 +68,11 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/stop", name="stop")
-     * @param Request $request
-     * @return RedirectResponse|NotFoundHttpException
+     * @Route("/stop", name="stop", methods={"POST"})
+     * @return RedirectResponse
      */
-    public function stopAction(Request $request)
+    public function stopAction()
     {
-        if (!$request->isMethod('POST')) {
-            return $this->createNotFoundException('Expecting post');
-        }
-
         $logEntries = $this->getLogEntryRepository()->getNonCompletedLogEntriesByUser($this->getUser());
 
         foreach ($logEntries as $logEntry) {
@@ -88,12 +82,12 @@ class DefaultController extends Controller
         return $this->redirectToRoute('homepage');
     }
 
-    public function formAction(Request $request)
+    /**
+     * @Method(methods={"POST"})
+     * @return RedirectResponse
+     */
+    public function formAction()
     {
-        if (!$request->isMethod('POST')) {
-            return $this->createNotFoundException('Expecting post');
-        }
-
         $logEntries = $this->getLogEntryRepository()->getNonCompletedLogEntriesByUser($this->getUser());
 
         foreach ($logEntries as $logEntry) {
