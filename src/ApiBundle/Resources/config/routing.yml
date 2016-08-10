@@ -6,3 +6,9 @@ tasks:
     type:     rest
     resource: ApiBundle\Controller\TasksController
     prefix:   /api
+
+default:
+    type: rest
+    resource: ApiBundle\Controller\DefaultController
+    prefix: /api
+

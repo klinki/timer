@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * LogEntry
@@ -16,6 +17,7 @@ class LogEntry
     /**
      * @var integer
      *
+     * @Groups({"short", "full"})
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -24,6 +26,8 @@ class LogEntry
 
     /**
      * @var string
+     *
+     * @Groups({"short", "full"})
      */
     protected $name;
 

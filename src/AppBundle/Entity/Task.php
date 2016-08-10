@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Task
@@ -16,6 +17,7 @@ class Task
     /**
      * @var integer
      *
+     * @Groups({"short", "full"})
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -25,6 +27,7 @@ class Task
     /**
      * @var string
      *
+     * @Groups({"short", "full"})
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;
@@ -40,6 +43,7 @@ class Task
     /**
      * @var LogEntry[]|ArrayCollection
      *
+     * @Groups({"full"})
      * @ORM\OneToMany(targetEntity="LogEntry", mappedBy="task")
      */
     protected $logEntries;
@@ -48,6 +52,7 @@ class Task
     /**
      * @var boolean
      *
+     * @Groups({"short", "full"})
      * @ORM\Column(type="boolean")
      */
     protected $isFinished;
@@ -56,6 +61,7 @@ class Task
     /**
      * @var int
      *
+     * @Groups({"short", "full"})
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $estimatedTime;
@@ -64,6 +70,7 @@ class Task
     /**
      * @var int
      *
+     * @Groups({"short", "full"})
      * @ORM\Column(type="boolean")
      */
     protected $isDefault;
