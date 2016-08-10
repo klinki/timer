@@ -17,23 +17,32 @@
                     <a class="nav-link" href="#">{{ 'navigation.about'|trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ 'navigation.contact'|trans }}</a>
+                    <a class="nav-link" href="">{{ 'navigation.contact'|trans }}</a>
                 </li>
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('fos_user_security_logout') }}">{{ 'navigation.logout'|trans }}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('fos_user_security_login') }}">{{ 'navigation.login'|trans }}</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
-        <h3 class="text-muted">{{ 'timelog'|trans }}</h3>
+        <h3 class="text-muted">{{ 'application.name'|trans }}</h3>
     </div>
 
     <div class="jumbotron">
         {% if hasActiveTask %}
             <h1 class="display-3" data-timestamp="{{ activeTask.from.getTimestamp() }}">{{ activeTask.timeRunning.format('%hh %Im %ss') }}</h1>
             <form action="{{ path('stop') }}" method="POST">
-                <button class="btn btn-lg btn-danger">STOP</button>
+                <button class="btn btn-lg btn-danger">{{ 'messages.stop'|trans|upper }}</button>
             </form>
         {% else %}
-            <h1 class="display-3">{{ 'no_active_tasks'|trans|capitalize }}</h1>
+            <h1 class="display-3">{{ 'messages.no_active_tasks'|trans|capitalize }}</h1>
             <form action="{{ path('start') }}" method="POST">
-                <button class="btn btn-lg btn-success">START</button>
+                <button class="btn btn-lg btn-success">{{ 'messages.start'|trans|upper }}</button>
             </form>
         {% endif %}
     </div>
@@ -63,7 +72,7 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; Company 2014</p>
+        <p>&copy; Klinki 2016</p>
     </footer>
 {% endblock %}
 {% block javascripts %}

@@ -1,0 +1,15 @@
+navigation:
+    home: Homepage
+    about: About
+    contact: Contact
+    current: Current
+    login: Login
+    logout: Logout
+
+application:
+    name: Timelog
+
+messages:
+    no_active_tasks: No active tasks
+    start: Start
+    stop: Stop
